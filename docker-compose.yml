@@ -1,0 +1,23 @@
+version: "3.8"
+
+volumes:
+  build_dir:
+    driver: local
+
+services:
+  github-actions-runner:
+    image: dier/github-actions-runner:${VERSION}
+    container_name: github-actions-runner
+    cpu_quota: 800000
+    mem_limit: 1g
+    mem_reservation: 256m
+    mem_swappiness: 0
+    volumes:
+      - type: volume
+        source: build_dir
+        target: /github/build-dir
+    environment:
+      GH_RUNNER_NAME: ubuntu20-local
+      GH_RUNNER_TOKEN: AB5KPJZYXV2BOQV4OJO65ATACMDVU
+      GH_RUNNER_URL: https://github.com/DimkaGorhover/dimkagorhover.github.io
+      GH_RUNNER_CONFIG_ARGS: --replace
